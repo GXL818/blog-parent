@@ -1,5 +1,5 @@
 package com.gui.blog.controller;
-import com.gui.blog.dao.pojo.Article;
+import com.gui.blog.common.aop.LogAnnotation;
 import com.gui.blog.service.ArticleService;
 import com.gui.blog.vo.Result;
 import com.gui.blog.vo.params.ArticleParam;
@@ -19,6 +19,7 @@ public class ArticleController {
      * @return
      */
     @PostMapping
+    @LogAnnotation(module = "首页文章列表",operator = "获取文章列表")
     public Result listArticle(@RequestBody PageParams pageParams){
         return articleService.listArticle(pageParams);
 }

@@ -28,8 +28,24 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public Result findAll() {
-        List<Category> categories = this.categoryMapper.selectList(new LambdaQueryWrapper<>());
+          LambdaQueryWrapper<Category> wrapper = new LambdaQueryWrapper<>();
+          wrapper.select(Category::getId,Category::getCategoryName);
+        List<Category> categories =
+                this.categoryMapper.selectList(wrapper);
         return Result.success(copyList(categories));
+    }
+
+    @Override
+    public Result findAllDetail() {
+        LambdaQueryWrapper<Category> wrapper = new LambdaQueryWrapper<>();
+        List<Category> categories = categoryMapper.selectList(wrapper);
+        return Result.success(copyList(categories));
+    }
+
+    @Override
+    public Result CategoryDetailById(Long id) {
+          Category category = categoryMapper.selectById(id);
+        return Result.success(copy(category));
     }
 
     public CategoryVo copy(Category category){
