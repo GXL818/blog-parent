@@ -63,7 +63,6 @@ public class ArticleController {
 
     @PostMapping("publish")
     public Result publish(@RequestBody ArticleParam articleParam){
-    System.out.println(articleParam);
         return articleService.publish(articleParam);
     }
 }
