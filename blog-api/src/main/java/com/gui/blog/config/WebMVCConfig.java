@@ -26,6 +26,7 @@ public class WebMVCConfig implements WebMvcConfigurer {
                 .addPathPatterns("/comments/create/change")
                 .addPathPatterns("/articles/publish")
                 //放行
-                .excludePathPatterns("/login");
+                .excludePathPatterns("/login")
+                .excludePathPatterns("/captcha");
     }
 }
