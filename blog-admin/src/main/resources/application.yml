@@ -1,0 +1,22 @@
+server:
+  port: 8889
+spring:
+  datasource:
+    username: root
+    password: 100808
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/blog?useUnicode=true&characterEncoding=UTF-8&serverTimeZone=UTC
+  servlet:
+    multipart:
+      max-file-size: 2MB
+      max-request-size: 20MB
+  application:
+    name: gui_admin_blog
+
+#mybatis-plus
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  global-config:
+    db-config:
+      table-prefix: ms_

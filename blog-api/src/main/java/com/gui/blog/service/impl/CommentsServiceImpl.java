@@ -49,7 +49,7 @@ public class CommentsServiceImpl implements CommentsService {
     public Result comment(CommentParam commentParam) {
         SysUser sysUser = UserThreadLocal.get();
         Comment comment = new Comment();
-        comment.setArticleId(commentParam.getArticleId());
+        comment.setArticleId(Long.parseLong(commentParam.getArticleId()));
         comment.setAuthorId(sysUser.getId());
         comment.setContent(commentParam.getContent());
         comment.setCreateDate(System.currentTimeMillis());
@@ -68,7 +68,7 @@ public class CommentsServiceImpl implements CommentsService {
         int count =  commentsMapper.selectCount(wrapper);
         Article article = new Article();
         article.setCommentCounts(count);
-        article.setId(commentParam.getArticleId());
+        article.setId(Long.parseLong(commentParam.getArticleId()));
         LambdaQueryWrapper<Article> wrapper1 = new LambdaQueryWrapper<>();
         wrapper1.eq(Article::getId,article.getId());
        articleMapper.update(article,wrapper1);
@@ -85,6 +85,7 @@ public class CommentsServiceImpl implements CommentsService {
 
     private CommentVo copy(Comment comment) {
         CommentVo commentVo = new CommentVo();
+        commentVo.setId(String.valueOf(comment.getId()));
         BeanUtils.copyProperties(comment,commentVo);
         commentVo.setCreateDate(new DateTime(comment.getCreateDate()).toString("yyyy-MM-dd HH:mm"));
         //作者信息

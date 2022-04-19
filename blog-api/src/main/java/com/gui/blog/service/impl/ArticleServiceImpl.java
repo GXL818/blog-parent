@@ -56,32 +56,7 @@ public class ArticleServiceImpl implements ArticleService {
           List<Article> records = articleIPage.getRecords();
           return Result.success(copyList(records,true,true));
     }
-//    @Override
-//    public Result listArticle(PageParams pageParams) {
-//        Page<Article> page = new Page<>(pageParams.getPage(),pageParams.getPageSize());
-//        LambdaQueryWrapper<Article> queryWrapper = new LambdaQueryWrapper<>();
-//        if(pageParams.getCategoryId() != null){
-//    queryWrapper.eq(Article::getCategoryId,pageParams.getCategoryId());
-//        }
-//        List<Long> articleIdList = new ArrayList<>();
-//        if(pageParams.getTagId() != null){
-//            LambdaQueryWrapper<ArticleTag> articleTagWrapper = new LambdaQueryWrapper<>();
-//            articleTagWrapper.eq(ArticleTag::getTagId,pageParams.getTagId());
-//              List<ArticleTag> articleTags = articleTagMapper.selectList(articleTagWrapper);
-//      for (ArticleTag articleTag : articleTags) {
-//          articleIdList.add(articleTag.getArticleId());
-//      }
-//      if(articleIdList.size() > 0){
-//          queryWrapper.in(Article::getId,articleIdList);
-//      }
-//        }
-//        //是否进行排序
-//        queryWrapper.orderByDesc(Article::getWeight,Article::getCreateDate);
-//         Page<Article> articlePage = articleMapper.selectPage(page, queryWrapper);
-//          List<Article> records = articlePage.getRecords();
-//          List<ArticleVo> articleVoList = copyList(records,true,true);
-//        return Result.success(articleVoList);
-//    }
+
     /**
      * 最热文章
      * @param limit
@@ -158,7 +133,7 @@ public class ArticleServiceImpl implements ArticleService {
           article.setTitle(articleParam.getTitle());
           article.setSummary(articleParam.getSummary());
           article.setCommentCounts(0);
-          article.setCategoryId(articleParam.getCategory().getId());
+          article.setCategoryId(Long.parseLong(articleParam.getCategory().getId()));
 
           articleMapper.insert(article);
           List<TagVo> tags = articleParam.getTags();
@@ -166,7 +141,7 @@ public class ArticleServiceImpl implements ArticleService {
           for (TagVo tag : tags) {
               Long articleId = article.getId();
               ArticleTag articleTag = new ArticleTag();
-              articleTag.setTagId(tag.getId());
+              articleTag.setTagId(Long.parseLong(tag.getId()));
               articleTag.setArticleId(articleId);
               articleTagMapper.insert(articleTag);
         //
@@ -219,6 +194,7 @@ public class ArticleServiceImpl implements ArticleService {
     }
     public ArticleVo copy(Article article,boolean isTag,boolean isAuthor,boolean isBody,boolean isCategory ){
             ArticleVo articleVo = new ArticleVo();
+            articleVo.setId(String.valueOf(article.getId()));
         BeanUtils.copyProperties(article, articleVo);
         articleVo.setCreateDate(new DateTime(article.getCreateDate()).toString("yyyy-MM-dd HH:mm"));
         if(isTag){

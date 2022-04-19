@@ -58,7 +58,7 @@ public class SysUserServiceImpl implements SysUserService {
       return Result.fail(ErrorCode.TOKEN_ERROR.getCode(), ErrorCode.TOKEN_ERROR.getMsg());
         }
         LoginUserVo loginUserVo = new LoginUserVo();
-        loginUserVo.setId(sysUser.getId());
+        loginUserVo.setId(String.valueOf(sysUser.getId()));
         loginUserVo.setNickname(sysUser.getNickname());
         loginUserVo.setAvatar(sysUser.getAvatar());
         loginUserVo.setAccount(sysUser.getAccount());
@@ -86,7 +86,7 @@ public class SysUserServiceImpl implements SysUserService {
             sysUser.setNickname("小猪猪");
         }
         UserVo userVo = new UserVo();
-        userVo.setId(sysUser.getId());
+        userVo.setId(String.valueOf(sysUser.getId()));
         userVo.setNickname(sysUser.getNickname());
         userVo.setAvatar(sysUser.getAvatar());
         

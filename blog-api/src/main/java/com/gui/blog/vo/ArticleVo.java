@@ -12,8 +12,8 @@ import java.util.List;
     /**
      * 保证雪花算法所生成的id 精度不会丢失
      */
-    @JsonSerialize(using = ToStringSerializer.class)
-        private Long id;
+   // @JsonSerialize(using = ToStringSerializer.class)
+        private String id;
 
         private String title;
 

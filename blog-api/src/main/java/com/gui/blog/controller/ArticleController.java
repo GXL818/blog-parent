@@ -1,5 +1,6 @@
 package com.gui.blog.controller;
 import com.gui.blog.common.aop.LogAnnotation;
+import com.gui.blog.common.cache.Cache;
 import com.gui.blog.service.ArticleService;
 import com.gui.blog.vo.Result;
 import com.gui.blog.vo.params.ArticleParam;
@@ -20,6 +21,7 @@ public class ArticleController {
      */
     @PostMapping
     @LogAnnotation(module = "首页文章列表",operator = "获取文章列表")
+
     public Result listArticle(@RequestBody PageParams pageParams){
         return articleService.listArticle(pageParams);
 }
@@ -31,6 +33,7 @@ public class ArticleController {
      */
 
     @PostMapping("hot")
+    @Cache(expire = 5*60*1000,name = "hot_article")
     public Result hotArticle(){
         int limit = 5;
         return articleService.hotArticle(limit);
@@ -42,6 +45,7 @@ public class ArticleController {
      * @return
      */
     @PostMapping("new")
+
     public Result newArticle(){
         int limit = 5;
         return articleService.newArticle(limit);

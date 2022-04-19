@@ -9,7 +9,7 @@ import java.util.List;
 @Data
 public class ArticleParam {
 
-    private Long id;
+    private String id;
 
     private ArticleBodyParam body;
 

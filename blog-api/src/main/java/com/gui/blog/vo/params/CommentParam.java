@@ -6,8 +6,7 @@ import lombok.Data;
 
 @Data
 public class CommentParam {
-    @JsonSerialize(using = ToStringSerializer.class)
-    private Long articleId;
+    private String articleId;
 
     private String content;
 
